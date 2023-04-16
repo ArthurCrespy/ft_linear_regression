@@ -14,6 +14,14 @@
 # define BUFFER_SIZE 10
 #endif
 
+#ifndef LEARNING_RATE
+# define LEARNING_RATE 0.0001
+#endif
+
+#ifndef LEARNING_TOLERANCE
+# define LEARNING_TOLERANCE 0.0000001
+#endif
+
 #ifndef FT_LINEAR_REGRESSION_H
 # define FT_LINEAR_REGRESSION_H
 
@@ -23,9 +31,18 @@
 # include <stdio.h>
 # include <fcntl.h>
 
-/* ---------- FT_UTILS ---------- */
+/* ---------- FT_LEN ------------ */
 long long	ft_strlen(char *str);
-int			ft_strchr(char *str, char c);
+long long   ft_nbrlen(double nbr);
+long long	ft_datasetlen(int *dataset);
+
+/* ---------- FT_SPLIT ---------- */
+char	**ft_split(char *str, char c);
+
+/* ---------- FT_UTILS ---------- */
+int			ft_isdigit(char *str);
+char		*ft_strchr(char *str, int c);
+int			ft_atoi(char *str);
 char		*ft_calloc(size_t nb, size_t size);
 char		*ft_strjoin(char *s1, char *s2);
 
