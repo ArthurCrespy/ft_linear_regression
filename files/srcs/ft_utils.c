@@ -12,32 +12,61 @@
 
 #include "./../includes/ft_linear_regression.h"
 
-long long	ft_strlen(char *str)
+int	ft_isdigit(char *str)
+{
+	int	i;
+
+	i = 0;
+	if (!str)
+		return (0);
+	while (str[i] && ((str[i] >= '0' && str[i] <= '9') || str[i] == '\n'))
+		i++;
+	if (i == ft_strlen(str))
+		return (1);
+	return (0);
+}
+
+
+char	*ft_strchr(char *str, int c)
 {
 	long long	i;
 
 	i = 0;
 	if (!str)
-		return (0);
-	while (str[i])
+		return (NULL);
+	if (c == '\0')
+		return (str + ft_strlen(str));
+	while (str[i] && str[i] != (char)c)
 		i++;
-	return (i);
+	if (i == ft_strlen(str))
+		return (NULL);
+	else
+		return (str + i);
 }
 
-int	ft_strchr(char *str, char c)
+int	ft_atoi(char *str)
 {
 	int	i;
+	int	sign;
+	int	result;
 
 	i = 0;
-	if (!str || !c)
-	    return (0);
-	while (str[i])
+	sign = 1;
+	result = 0;
+	while ((str[i] >= 9 && str[i] <= 13) || str[i] == ' ')
+		i++;
+	if (str[i] == '-' || str[i] == '+')
 	{
-		if (str[i] == c)
-		    return (1);
+		if (str[i] == '-')
+			sign *= -1;
 		i++;
 	}
-	return (0);
+	while (str[i] && (str[i] >= '0' && str[i] <= '9'))
+	{
+		result *= 10;
+		result += (str[i++] - '0');
+	}
+	return (result * sign);
 }
 
 char	*ft_calloc(size_t nb, size_t size)
