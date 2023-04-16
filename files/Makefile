@@ -12,30 +12,46 @@
 
 NAME        := ft_linear_regression
 
+NAME_COMPUTE := compute
+NAME_TRAIN := train
+
 SRC_DIR     := srcs
-SRCS := \
+SRCS_COMPUTE := \
+			ft_len.c \
 			ft_utils.c \
 			get_next_line.c \
-			main.c \
+			compute.c \
 
-SRCS := ${SRCS:%=${SRC_DIR}/%}
+SRCS_TRAIN := \
+			ft_len.c \
+			ft_split.c \
+			ft_utils.c \
+			get_next_line.c \
+			train.c \
+
+SRCS_COMPUTE := ${SRCS_COMPUTE:%=${SRC_DIR}/%}
+SRCS_TRAIN := ${SRCS_TRAIN:%=${SRC_DIR}/%}
 
 OBJ_DIR     := .objs
-OBJS := ${SRCS:${SRC_DIR}/%.c=${OBJ_DIR}/%.o}
+OBJS_COMPUTE := ${SRCS_COMPUTE:${SRC_DIR}/%.c=${OBJ_DIR}/%.o}
+OBJS_TRAIN := ${SRCS_TRAIN:${SRC_DIR}/%.c=${OBJ_DIR}/%.o}
 
 CC          := clang
 CFLAGS      := -Wall -Wextra -Werror -g
 
-RM          := rm -f
+RM          := rm -rf
 MAKEFLAGS   += --no-print-directory
 DIR_DUP     = mkdir -p ${@D}
 
-all: ${NAME}
+all: ${NAME_COMPUTE} ${NAME_TRAIN}
 
-${NAME}: ${OBJS}
-	${CC} ${OBJS} -o ${NAME}
-	${info EXECUTABLE CREATED: ${NAME}}
+${NAME_COMPUTE}: ${OBJS_COMPUTE}
+	${CC} ${OBJS_COMPUTE} -o ${NAME_COMPUTE}
+	${info EXECUTABLE CREATED: ${NAME_COMPUTE}}
 
+${NAME_TRAIN}: ${OBJS_TRAIN}
+	${CC} ${OBJS_TRAIN} -o ${NAME_TRAIN}
+	${info EXECUTABLE CREATED: ${NAME_TRAIN}}
 
 ${OBJ_DIR}/%.o: ${SRC_DIR}/%.c
 	${DIR_DUP}
@@ -43,16 +59,16 @@ ${OBJ_DIR}/%.o: ${SRC_DIR}/%.c
 	${info OBJECT CREATED: $@}
 
 clean:
-	${RM} ${OBJS}
-	${info REMOVED OBJECTS: ${OBJS}}
+	${RM} ${OBJS_COMPUTE} ${OBJS_TRAIN} ${OBJ_DIR}
+	${info REMOVED OBJECTS: ${OBJS_COMPUTE} ${OBJS_TRAIN}}
 
 fclean: clean
-	${RM} ${NAME}
-	${info REMOVED EXECUTABLES: ${NAME}}
+	${RM} ${NAME_COMPUTE} ${NAME_TRAIN} .tetha
+	${info REMOVED EXECUTABLES: ${NAME_COMPUTE} ${NAME_TRAIN}}
 
 re:
 	${MAKE} fclean
 	${MAKE} all
 
 .PHONY: clean fclean re
-.SILENT: ${OBJS} ${OBJS_CLIENT} ${NAME} ${NAME_CLIENT} clean fclean re
+.SILENT: ${OBJS_COMPUTE} ${OBJS_TRAIN} ${NAME_COMPUTE} ${NAME_TRAIN} clean fclean re
