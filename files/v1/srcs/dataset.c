@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   train.c                                            :+:      :+:    :+:   */
+/*   datatset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: acrespy <acrespy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/15 23:20:25 by acrespy           #+#    #+#             */
-/*   Updated: 2023/04/15 23:47:19 by acrespy          ###   ########.fr       */
+/*   Created: 2023/04/16 13:50:24 by acrespy           #+#    #+#             */
+/*   Updated: 2023/04/16 13:50:44 by acrespy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,81 +87,4 @@ int **dataset_parse(char *path)
 	}
 	close(fd);
 	return (dataset);
-}
-
-int theta_create(void)
-{
-	int fd;
-
-	fd = open(".tetha", O_CREAT | O_RDWR | O_TRUNC, 0644);
-	if (fd == -1)
-		return (1);
-	write(fd, "0\n0", 3);
-	close(fd);
-	return (0);
-}
-
-int theta_update(double th0, double th1)
-{
-	int fd;
-
-	fd = open(".tetha", O_RDWR);
-	if (fd == -1)
-		return (1);
-	write(fd, &th0, ft_nbrlen(th0));
-	write(fd, "\n", 1);
-	write(fd, &th1, ft_nbrlen(th1));
-	close(fd);
-	return (0);
-}
-
-void train(int *mileage, int *price, double th0, double th1)
-{
-	int i;
-	int j;
-	double cost;
-	double diff;
-	double delta_0;
-	double delta_1;
-
-	j = 0;
-	while (j < 10)
-	{
-		i = 0;
-		cost = 0;
-		while (i < ft_datasetlen(mileage))
-		{
-			diff = (th0 + (th1 * (double) mileage[i]));
-			delta_0 = diff - (double) price[i];
-			delta_1 = (diff - (double) price[i]) * (double) mileage[i];
-			cost += (diff - (double) price[i]) * (diff - (double) price[i]);
-			printf("diff: %f, delta_0: %f, delta_1: %f, cost: %f\n", diff, delta_0, delta_1, cost);
-			i++;
-		}
-		th0 = LEARNING_RATE * (1 / (double) ft_datasetlen(mileage)) * delta_0;
-		th1 = LEARNING_RATE * (1 / (double) ft_datasetlen(mileage)) * delta_1;
-		j++;
-	}
-	printf("th0: %f, th1: %f, cost: %f\n", th0, th1, cost);
-	theta_update(th0, th1);
-}
-
-int main(int argc, char **argv)
-{
-	double th0;
-	double th1;
-	int **dataset;
-
-	th0 = 0;
-	th1 = 0;
-	if (argc != 2)
-		return (1);
-	if (theta_create() == 1)
-		return (1);
-	dataset = dataset_parse(argv[1]);
-	if (!dataset || !dataset[0] || !dataset[1])
-		return (1);
-	//train(dataset[0], dataset[1], th0, th1);
-	gradientDescent(dataset[0], dataset[1], ft_datasetlen(dataset[0]), &th0, &th1);
-	return (0);
 }

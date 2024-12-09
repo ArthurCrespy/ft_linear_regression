@@ -23,10 +23,12 @@ SRCS_COMPUTE := \
 			compute.c \
 
 SRCS_TRAIN := \
+			dataset.c \
 			ft_len.c \
 			ft_split.c \
 			ft_utils.c \
 			get_next_line.c \
+			theta.c \
 			train.c \
 
 SRCS_COMPUTE := ${SRCS_COMPUTE:%=${SRC_DIR}/%}

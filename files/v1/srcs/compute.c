@@ -23,7 +23,7 @@ int main(int argc, char **argv)
 	mileage = ft_atoi(argv[1]);
 	if (mileage < 0)
 		return (printf("Mileage must be positive\n"), 1);
-	fd = open(".tetha", O_RDONLY);
+	fd = open("../.tetha", O_RDONLY);
 	price = 0;
 	if (fd == -1)
 		return (printf("Estimated price: %d\n", price), 1);

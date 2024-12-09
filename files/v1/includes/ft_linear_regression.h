@@ -15,7 +15,7 @@
 #endif
 
 #ifndef LEARNING_RATE
-# define LEARNING_RATE 0.0001
+# define LEARNING_RATE 0.00001
 #endif
 
 #ifndef LEARNING_TOLERANCE
@@ -31,13 +31,16 @@
 # include <stdio.h>
 # include <fcntl.h>
 
+/* ---------- DATASET------------ */
+int			**dataset_parse(char *path);
+
 /* ---------- FT_LEN ------------ */
 long long	ft_strlen(char *str);
 long long   ft_nbrlen(double nbr);
 long long	ft_datasetlen(int *dataset);
 
 /* ---------- FT_SPLIT ---------- */
-char	**ft_split(char *str, char c);
+char		**ft_split(char *str, char c);
 
 /* ---------- FT_UTILS ---------- */
 int			ft_isdigit(char *str);
@@ -48,5 +51,9 @@ char		*ft_strjoin(char *s1, char *s2);
 
 /* ------------ GNL ------------- */
 char		*get_next_line(int fd);
+
+/* ----------- THETA ------------ */
+int			theta_create(void);
+int			theta_update(double th0, double th1);
 
 #endif
