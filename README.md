@@ -63,7 +63,7 @@ IA project. You will learn the basics of regression.
 
 ## You may also like...
 
-- [dslr](https://github.com/ArthurCrespy/dslr) - Datascience X Logistic Regression<
+- [dslr](https://github.com/ArthurCrespy/dslr) - Datascience X Logistic Regression
 - [pi_data_science](https://github.com/ArthurCrespy/pi_data_science) - Piscine - Piscine Data Science
 
 ## License
