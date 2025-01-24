@@ -42,7 +42,7 @@ $ git clone https://github.com/ArthurCrespy/ft_linear_regression
 $ git clone git@github.com:ArthurCrespy/ft_linear_regression.git
 
 # Go into the repository
-$ cd ft_linear_regression/files/v2
+$ cd ft_linear_regression/files
 
 # Train the model
 $ train.py ../datasets/data.csv
